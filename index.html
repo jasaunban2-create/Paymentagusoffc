@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗣𝗔𝗬𝗠𝗘𝗡𝗧 𝗔𝗚𝗨𝗦 𝗢𝗙𝗙𝗖 - 𝗕𝗔𝗬𝗔𝗥 𝗗𝗘𝗡𝗚𝗔𝗡 𝗠𝗨𝗗𝗔𝗛</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .product-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            opacity: 0.8;
+        }
+
+        .amount-section {
+            margin-bottom: 30px;
+        }
+
+        .amount-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .amount-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .amount-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .payment-methods {
+            margin-bottom: 30px;
+        }
+
+        .payment-methods h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .method-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .method-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .method-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .method-item.selected {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+
+        .dana {
+            background: linear-gradient(135deg, #1087dd, #0d6bb8);
+        }
+
+        .gopay {
+            background: linear-gradient(135deg, #00a64f, #00853f);
+        }
+
+        .shopee {
+            background: linear-gradient(135deg, #ff6b00, #e55a00);
+        }
+
+        .method-info {
+            flex: 1;
+        }
+
+        .method-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .method-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .method-details {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .method-item.selected .method-details {
+            display: block;
+        }
+
+        .radio-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .radio-btn::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            display: none;
+        }
+
+        .method-item.selected .radio-btn::after {
+            display: block;
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffd700, #ff9500);
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 213, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pay-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 213, 0, 0.6);
+        }
+
+        .pay-button:active {
+            transform: translateY(0);
+        }
+
+        .payment-details {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            opacity: 0.8;
+        }
+
+        .detail-value {
+            font-weight: 600;
+        }
+
+        .no-fee {
+            color: #4cd964;
+            font-weight: bold;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .no-admin-notice {
+            text-align: center;
+            background: rgba(76, 217, 100, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(76, 217, 100, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .payment-card {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Payment Gateway</h1>
+            <p>Bayar dengan mudah dan cepat</p>
+        </div>
+        
+        <div class="payment-card">
+            <div class="product-image">
+                <img src="https://files.catbox.moe/qj2cho.jpg" alt="Produk">
+            </div>
+            
+            <div class="product-info">
+                <h2>Premium Membership</h2>
+                <p>Akses penuh ke semua fitur premium selama 1 tahun</p>
+            </div>
+            
+            <div class="amount-section">
+                <label class="amount-label" for="amount">Jumlah Pembayaran</label>
+                <input type="text" id="amount" class="amount-input" placeholder="Rp 0" value="Rp 150.000">
+            </div>
+            
+            <div class="payment-methods">
+                <h2>Pilih Metode Pembayaran</h2>
+                <div class="method-list">
+                    <div class="method-item selected" data-method="dana">
+                        <div class="method-icon dana">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="method-info">
+                            <div class="method-name">DANA</div>
+                            <div class="method-desc">Bayar dengan saldo DANA</div>
+                            <div class="method-details">
+                                <p><strong>Nomor:</strong> 089518758891</p>
+                                <button class="copy-btn" data-text="089518758891">Salin Nomor</button>
+                            </div>
+                        </div>
+                        <div class="radio-btn"></div>
+                    </div>
+                    
+                    <div class="method-item" data-method="gopay">
+                        <div class="method-icon gopay">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="method-info">
+                            <div class="method-name">Go-Pay</div>
+                            <div class="method-desc">Bayar dengan Go-Pay</div>
+                            <div class="method-details">
+                                <p><strong>Nomor:</strong> 089518758891</p>
+                                <button class="copy-btn" data-text="089518758891">Salin Nomor</button>
+                            </div>
+                        </div>
+                        <div class="radio-btn"></div>
+                    </div>
+                    
+                    <div class="method-item" data-method="shopee">
+                        <div class="method-icon shopee">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="method-info">
+                            <div class="method-name">Shopee</div>
+                            <div class="method-desc">Bayar dengan ShopeePay</div>
+                            <div class="method-details">
+                                <p><strong>Nomor:</strong> 089518758891</p>
+                                <button class="copy-btn" data-text="089518758891">Salin Nomor</button>
+                            </div>
+                        </div>
+                        <div class="radio-btn"></div>
+                    </div>
+                </div>
+                
+                <div class="no-admin-notice">
+                    <i class="fas fa-check-circle"></i> Tanpa biaya admin untuk semua metode pembayaran
+                </div>
+            </div>
+            
+            <button class="pay-button">
+                <i class="fas fa-lock"></i>
+                Bayar Sekarang
+            </button>
+            
+            <div class="payment-details">
+                <div class="detail-item">
+                    <span class="detail-label">Metode Pembayaran</span>
+                    <span class="detail-value" id="method-name">DANA</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Jumlah</span>
+                    <span class="detail-value" id="amount-value">Rp 150.000</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Biaya Admin</span>
+                    <span class="detail-value no-fee">GRATIS</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Total</span>
+                    <span class="detail-value" id="total-value">Rp 150.000</span>
+                </div>
+            </div>
+            
+            <div class="instructions" id="dana-instructions">
+                <p><strong>Instruksi Pembayaran DANA:</strong></p>
+                <ol>
+                    <li>Buka aplikasi DANA di ponsel Anda</li>
+                    <li>Pilih menu "Bayar" atau "Kirim"</li>
+                    <li>Masukkan nomor: <strong>089518758891</strong></li>
+                    <li>Masukkan jumlah yang harus dibayar: <strong id="dana-amount">Rp 150.000</strong></li>
+                    <li>Konfirmasi pembayaran</li>
+                </ol>
+            </div>
+            
+            <div class="instructions" id="gopay-instructions">
+                <p><strong>Instruksi Pembayaran Go-Pay:</strong></p>
+                <ol>
+                    <li>Buka aplikasi Gojek di ponsel Anda</li>
+                    <li>Pilih menu "Go-Pay"</li>
+                    <li>Pilih "Bayar" dan masukkan nomor: <strong>089518758891</strong></li>
+                    <li>Masukkan jumlah yang harus dibayar: <strong id="gopay-amount">Rp 150.000</strong></li>
+                    <li>Konfirmasi pembayaran</li>
+                </ol>
+            </div>
+            
+            <div class="instructions" id="shopee-instructions">
+                <p><strong>Instruksi Pembayaran Shopee:</strong></p>
+                <ol>
+                    <li>Buka aplikasi Shopee di ponsel Anda</li>
+                    <li>Pilih menu "ShopeePay"</li>
+                    <li>Pilih "Transfer" atau "Kirim Uang"</li>
+                    <li>Masukkan nomor: <strong>089518758891</strong></li>
+                    <li>Masukkan jumlah yang harus dibayar: <strong id="shopee-amount">Rp 150.000</strong></li>
+                    <li>Konfirmasi pembayaran</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2023 Payment Gateway. Semua transaksi aman dan terenkripsi.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const methodItems = document.querySelectorAll('.method-item');
+            const payButton = document.querySelector('.pay-button');
+            const paymentDetails = document.querySelector('.payment-details');
+            const methodName = document.getElementById('method-name');
+            const amountValue = document.getElementById('amount-value');
+            const totalValue = document.getElementById('total-value');
+            const amountInput = document.getElementById('amount');
+            const instructions = document.querySelectorAll('.instructions');
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            
+            // Format input amount
+            amountInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value) {
+                    value = parseInt(value).toLocaleString('id-ID');
+                    e.target.value = 'Rp ' + value;
+                } else {
+                    e.target.value = 'Rp 0';
+                }
+                updatePaymentDetails();
+            });
+            
+            // Method selection
+            methodItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    methodItems.forEach(i => i.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const method = this.getAttribute('data-method');
+                    updatePaymentDetails();
+                    showInstructions(method);
+                });
+            });
+            
+            // Copy button functionality
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const text = this.getAttribute('data-text');
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = 'Tersalin!';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+            
+            // Pay button click
+            payButton.addEventListener('click', function() {
+                const selectedMethod = document.querySelector('.method-item.selected').getAttribute('data-method');
+                const amount = amountInput.value;
+                
+                alert(`Pembayaran sebesar ${amount} dengan ${selectedMethod.toUpperCase()} sedang diproses!`);
+                
+                // Simulasi pembayaran berhasil setelah 2 detik
+                setTimeout(() => {
+                    alert('Pembayaran berhasil! Terima kasih.');
+                }, 2000);
+            });
+            
+            // Update payment details
+            function updatePaymentDetails() {
+                const selectedMethod = document.querySelector('.method-item.selected').getAttribute('data-method');
+                const amount = amountInput.value;
+                
+                methodName.textContent = selectedMethod.toUpperCase();
+                amountValue.textContent = amount;
+                
+                // Tanpa biaya admin
+                const total = amount;
+                
+                totalValue.textContent = total;
+                
+                // Update amount in instructions
+                document.getElementById('dana-amount').textContent = amount;
+                document.getElementById('gopay-amount').textContent = amount;
+                document.getElementById('shopee-amount').textContent = amount;
+                
+                paymentDetails.style.display = 'block';
+            }
+            
+            // Show instructions based on selected method
+            function showInstructions(method) {
+                instructions.forEach(instruction => {
+                    instruction.style.display = 'none';
+                });
+                
+                document.getElementById(`${method}-instructions`).style.display = 'block';
+            }
+            
+            // Initialize
+            updatePaymentDetails();
+            showInstructions('dana');
+        });
+    </script>
+</body>
+</html>
